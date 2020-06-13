@@ -15,8 +15,7 @@ jobs:
     steps:
       - checkout
       - run: cd backend && npm i && npm run test
-    requires:
-      - test-frontend
+    
 
   build-frontend:
     executor:
@@ -24,8 +23,7 @@ jobs:
     steps:
       - checkout
       - run: cd frontend && npm i && npm run build
-    requires:
-      - test-backend
+    
 
   build-backend:
     executor:
@@ -33,14 +31,18 @@ jobs:
     steps:
       - checkout
       - run: cd backend && npm i && npm run build
-    requires:
-      - build-frontend
 
 workflows:
     build-and-test:
       jobs:
-        - test-backend
         - test-frontend
+        - test-backend
+            requires:
+              - test-backend
         - build-backend
+            requires:
+              - build-frontend
         - build-frontend
+            requires:
+              - test-frontend
         

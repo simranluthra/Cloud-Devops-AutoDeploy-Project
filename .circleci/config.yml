@@ -32,6 +32,19 @@ jobs:
       - checkout
       - run: cd backend && npm i && npm run build
 
+  analyze-backend:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run: cd backend && npm i && npm audit --audit-level=critical
+  analyze-frontend:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run: cd frontend && npm i && npm audit --audit-level=critical
+
 workflows:
     build-and-test:
       jobs:

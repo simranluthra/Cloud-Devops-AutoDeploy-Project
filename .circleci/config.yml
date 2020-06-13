@@ -7,18 +7,14 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - run: cd frontend
-      - run: npm i
-      - run: npm run test
+      - run: cd frontend && npm i && npm run test
 
   build-and-test-backend:
     executor:
       name: node/default
     steps:
       - checkout
-      - run: cd backend
-      - run: npm i
-      - run: npm run test
+      - run: cd backend && npm i && npm run test
 
 workflows:
     build-and-test:
